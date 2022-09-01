@@ -54,10 +54,10 @@
     </div>
       
 
-<div id="pdfTable" #pdfTable class ="container" *ngIf ="success">
+<div id="pdfTable" #pdfTable class ="container" #userTable *ngIf ="success">
   <div class = "card">
     <h2 class="text-center">National Clearing Company of Pakistan</h2>
-      <h3 class="text-center">  Sample report</h3>
+      <h3 class="text-center" >  Sample report</h3>
 
       <div class = "card-body">
         <div class="row">
@@ -67,8 +67,8 @@
 
         </div>
           <table   class="table table-striped">
-              <thead>
-                  <th>Cm Id</th>
+              <thead >
+                  <th >Cm Id</th>
                   <th> CM Name</th>
                   <th> Symbol</th>
                   <th>Margin</th>
@@ -96,12 +96,17 @@
 </div>
 <div class="container" *ngIf ="success">
     <div class="row">
-      <div class="col-10">
+      <div class="col-8">
         <button class="btn btn-warning" (click)="Back();">Back</button>
       </div>
       <div >
-        <button class="btn btn-primary"  (click)="downloadAsPDF();">Export To PDF</button>
-        <button class="btn btn-primary"  (click)="downloadAsPDF();">Export To Text</button>
+        
+        <button class="btn btn-primary "  (click)="downloadAsPDF();">Export To PDF</button>
+      </div>
+      <div class="col-1"></div>
+      <div >
+        
+        <button class="btn btn-primary"  (click)="exportElmToExcel();">Export To Excel</button>
       </div>
     </div>
     </div>

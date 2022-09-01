@@ -3,13 +3,16 @@ import {UserService} from '../user.service'
 import { User } from '../User';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import * as XLSX from 'xlsx';
 
+const EXCEL_EXTENSION = '.xlsx';
 
 declare var require: any;
 
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
 import { BasicReport } from '../BasicReport';
+import { ExportexcelService } from '../exportexcel.service';
 const htmlToPdfmake = require("html-to-pdfmake");
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
@@ -25,7 +28,7 @@ export class UserComponent  {
   cmId ="";
 
  now = new Date();
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router,  private exportService: ExportexcelService) { }
 
  // ngOnInit(): void {
     //this.userService.getUsers().subscribe((data: User[]) => {
@@ -39,6 +42,7 @@ export class UserComponent  {
    
  }
   @ViewChild('pdfTable')
+  userTable: any = ElementRef;
   pdfTable!: ElementRef;
   public getReport(): void {
     this.userService.getReportByCmId(this.cmId).subscribe(
@@ -52,7 +56,9 @@ export class UserComponent  {
       }
     );
   }
-
+  exportElmToExcel(): void {
+    this.exportService.exportTableElmToExcel(this.userTable, 'mts_report');
+  }
   public downloadAsPDF() {
     const pdfTable = this.pdfTable.nativeElement;
     var html = htmlToPdfmake(pdfTable.innerHTML);
